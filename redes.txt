@@ -1,0 +1,59 @@
+LVM Technologies
+
+Domínio:
+lvm.local
+
+Rede:
+10.10.10.0/24
+
+Tipo:
+Host-Only
+
+Infraestrutura
+
+DC01
+Função: Active Directory + DNS
+IP: 10.10.10.10
+
+WS01
+Função: Estação RH
+IP: 10.10.10.20
+
+WS02
+Função: Estação Financeiro
+IP: 10.10.10.21
+
+WS03
+Função: Estação TI
+IP: 10.10.10.22
+
+WS04
+Função: Notebook Diretoria
+IP: 10.10.10.23
+
+SEC01
+Função: Wazuh Server
+IP: 10.10.10.30
+
+Host Linux
+Função: Administração e Simulação de Ataques
+IP: 10.10.10.100
+
+DNS
+
+Primário:
+10.10.10.10
+
+Inventário
+
+PC-RH01
+→ WS01
+
+PC-FIN01
+→ WS02
+
+PC-TI01
+→ WS03
+
+NOTEBOOK-DIR01
+→ WS04

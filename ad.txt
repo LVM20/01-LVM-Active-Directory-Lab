@@ -1,0 +1,30 @@
+lvm.local
+
+├── Diretoria
+│   ├── diretor01
+│   └── diretor02
+│
+├── RH
+│   ├── giovana.rh
+│   └── barbara.rh
+│
+├── Financeiro
+│   ├── lais.fin
+│   └── cecilia.fin
+│
+├── TI
+│   ├── ricardo.ti
+│   ├── suporte.ti
+│   └── admin.ti
+│
+├── Computadores
+│   ├── PC-RH01
+│   ├── PC-FIN01
+│   ├── PC-TI01
+│   └── NOTEBOOK-DIR01
+│
+└── Grupos
+    ├── GRP_DIRETORIA
+    ├── GRP_RH
+    ├── GRP_FINANCEIRO
+    └── GRP_TI

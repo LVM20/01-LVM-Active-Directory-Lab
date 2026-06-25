@@ -1,0 +1,54 @@
+LVM Technologies
+
+Domínio:
+lvm.local
+
+Setores:
+- Diretoria
+- RH
+- Financeiro
+- TI
+
+Usuários:
+- diretor01
+- diretor02
+- barbara.rh
+- giovana.rh
+- lais.fin
+- cecilia.fin
+- ricardo.ti
+- suporte.ti
+- admin.ti
+
+GRP_DIRETORIA
+- diretor01
+- diretor02
+
+GRP_RH
+- giovana.rh
+- barbara.rh
+
+GRP_FINANCEIRO
+- lais.fin
+- cecilia.fin
+
+GRP_TI
+- ricardo.ti
+- suporte.ti
+- admin.ti
+
+\\DC01\RH
+
+\\DC01\Financeiro
+
+\\DC01\Diretoria
+
+\\DC01\TI
+
+Ativos
+
+- DC01 (Domain Controller)
+- PC-RH01
+- PC-FIN01
+- PC-TI01
+- NOTEBOOK-DIR01
