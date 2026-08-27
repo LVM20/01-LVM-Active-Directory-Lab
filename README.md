@@ -1,63 +1,40 @@
-# 🏢 LVM Technologies — Active Directory Lab
+# 🏢 Projeto 01 — Active Directory Corporate Lab
 
-Laboratório corporativo virtualizado desenvolvido para estudar e praticar **Windows Administration, Active Directory, DNS, gerenciamento de identidades, controle de acesso e fundamentos de segurança defensiva**.
+Laboratório corporativo virtualizado desenvolvido para praticar **Windows Administration, Active Directory, DNS, gerenciamento de identidades, controle de acesso e fundamentos de segurança defensiva**.
 
-O ambiente simula uma infraestrutura empresarial com diferentes departamentos, usuários, grupos de segurança, estações Windows e um servidor centralizado.
+O ambiente simula uma infraestrutura empresarial da **LVM Technologies**, composta por um controlador de domínio, DNS, departamentos, usuários, grupos de segurança, estações Windows e compartilhamentos de arquivos.
 
----
+A infraestrutura desenvolvida neste projeto serve como **base para os projetos posteriores de GPO, Hardening, Wazuh, Threat Hunting, Incident Response e demais atividades de Cybersecurity**.
 
-## 📌 Sobre o Projeto
-
-O projeto consiste na implementação de uma infraestrutura baseada em **Windows Server 2025**, utilizando o **Active Directory Domain Services (AD DS)** como núcleo do ambiente corporativo.
-
-Foram implementados:
-
-* Active Directory Domain Services
-* DNS integrado ao domínio
-* Organizational Units (OUs)
-* Usuários e grupos
-* Controle de acesso baseado em grupos
-* RBAC
-* Compartilhamento de arquivos
-* Permissões NTFS e SMB
-* Estações Windows ingressadas no domínio
-* Autenticação centralizada
-
-A infraestrutura também foi utilizada como base para os projetos posteriores de **Blue Team, SIEM e monitoramento de segurança**.
+> **Aviso:** todas as configurações foram realizadas em ambiente virtualizado e controlado, exclusivamente para fins educacionais.
 
 ---
 
-# 🎯 Objetivos
+## 🎯 Objetivo
 
-* Implementar um domínio Active Directory funcional.
-* Configurar DNS integrado ao AD.
-* Criar uma estrutura organizacional baseada em departamentos.
-* Criar e administrar usuários.
-* Criar grupos de segurança.
-* Implementar controle de acesso baseado em grupos.
-* Configurar compartilhamentos de arquivos.
-* Aplicar permissões de acesso.
-* Integrar estações Windows ao domínio.
-* Validar autenticação centralizada.
-* Construir uma infraestrutura que pudesse ser expandida para projetos posteriores de segurança.
+O objetivo deste projeto foi construir uma infraestrutura corporativa Windows baseada em **Active Directory Domain Services (AD DS)**.
 
----
+Durante a implementação foram praticados:
 
-# 🖥️ Infraestrutura
-
-| Host            | Função                               | Endereço IP    |
-| --------------- | ------------------------------------ | -------------- |
-| **DC01**        | Active Directory + DNS + File Server | `10.10.10.10`  |
-| **WS01**        | Recursos Humanos                     | `10.10.10.20`  |
-| **WS02**        | Financeiro                           | `10.10.10.21`  |
-| **WS03**        | Tecnologia da Informação             | `10.10.10.22`  |
-| **WS04**        | Diretoria                            | `10.10.10.23`  |
-| **SEC01**       | Wazuh Server                         | `10.10.10.30`  |
-| **Host Ubuntu** | Administração / Laboratório          | `10.10.10.100` |
+* Criação e configuração de um domínio Active Directory;
+* Configuração de DNS integrado ao AD;
+* Estruturação de Organizational Units;
+* Criação e gerenciamento de usuários;
+* Criação de grupos de segurança;
+* Controle de acesso baseado em grupos;
+* RBAC;
+* Configuração de compartilhamentos SMB;
+* Aplicação de permissões NTFS;
+* Ingresso de estações Windows no domínio;
+* Autenticação centralizada;
+* Validação da infraestrutura;
+* Troubleshooting de serviços Windows e Active Directory.
 
 ---
 
-# 🌐 Rede
+# 🏗️ Ambiente do laboratório
+
+O laboratório foi construído em ambiente virtualizado utilizando **KVM/QEMU**, com Ubuntu Linux como sistema de administração.
 
 ### Domínio
 
@@ -79,6 +56,73 @@ lvm.local
 
 ---
 
+## 🖥️ Infraestrutura
+
+| Host            | Função                               | Endereço IP    |
+| --------------- | ------------------------------------ | -------------- |
+| **DC01**        | Active Directory + DNS + File Server | `10.10.10.10`  |
+| **WS01**        | Endpoint — Recursos Humanos          | `10.10.10.20`  |
+| **WS02**        | Endpoint — Financeiro                | `10.10.10.21`  |
+| **WS03**        | Endpoint — Tecnologia da Informação  | `10.10.10.22`  |
+| **WS04**        | Endpoint — Diretoria                 | `10.10.10.23`  |
+| **SEC01**       | Wazuh Server                         | `10.10.10.30`  |
+| **Host Ubuntu** | Administração / Laboratório          | `10.10.10.100` |
+
+---
+
+# 🧱 Arquitetura
+
+A infraestrutura foi organizada de forma semelhante a um ambiente corporativo real:
+
+```text
+                         LVM Technologies
+                               │
+                         Active Directory
+                               │
+                              DC01
+                        10.10.10.10
+                               │
+              ┌────────────────┼────────────────┐
+              │                │                │
+            RH             Financeiro           TI
+              │                │                │
+            WS01             WS02              WS03
+        10.10.10.20      10.10.10.21      10.10.10.22
+                               │
+                            Diretoria
+                               │
+                              WS04
+                         10.10.10.23
+                               │
+                               ▼
+                             SEC01
+                        Wazuh Server
+                        10.10.10.30
+```
+
+O **DC01** atua como núcleo da infraestrutura de identidade e resolução de nomes, enquanto as estações Windows representam os diferentes departamentos da organização.
+
+---
+
+# 🌐 Active Directory
+
+O domínio utilizado no laboratório é:
+
+```text
+lvm.local
+```
+
+O Active Directory foi utilizado para centralizar:
+
+* Identidades;
+* Autenticação;
+* Grupos;
+* Computadores;
+* Estrutura organizacional;
+* Controle de acesso.
+
+---
+
 # 🏢 Estrutura Organizacional
 
 A estrutura do Active Directory foi organizada de acordo com os departamentos da empresa:
@@ -92,7 +136,7 @@ LVM Technologies
 └── TI
 ```
 
-Essa organização permite separar usuários, computadores e permissões de acordo com suas respectivas áreas.
+Essa organização permite separar os objetos do domínio de acordo com suas respectivas áreas e facilita a aplicação futura de políticas e permissões.
 
 ---
 
@@ -100,30 +144,40 @@ Essa organização permite separar usuários, computadores e permissões de acor
 
 ### Diretoria
 
-* `diretor01`
-* `diretor02`
+```text
+diretor01
+diretor02
+```
 
 ### RH
 
-* `barbara.rh`
-* `giovana.rh`
+```text
+barbara.rh
+giovana.rh
+```
 
 ### Financeiro
 
-* `lais.fin`
-* `cecilia.fin`
+```text
+lais.fin
+cecilia.fin
+```
 
 ### TI
 
-* `ricardo.ti`
-* `suporte.ti`
-* `admin.ti`
+```text
+ricardo.ti
+suporte.ti
+admin.ti
+```
+
+Os usuários foram criados no Active Directory e utilizados posteriormente para validação de autenticação e controle de acesso.
 
 ---
 
 # 🔐 Grupos de Segurança
 
-Foram criados grupos específicos para cada departamento:
+Foram criados grupos específicos para os departamentos:
 
 ```text
 GRP_DIRETORIA
@@ -132,11 +186,15 @@ GRP_FINANCEIRO
 GRP_TI
 ```
 
-Os grupos foram utilizados para facilitar o gerenciamento de permissões e implementar o princípio de controle de acesso baseado em funções e departamentos.
+Os grupos foram utilizados como base para o gerenciamento de permissões.
+
+Essa abordagem reduz a necessidade de atribuir permissões diretamente a usuários individuais e facilita a administração do ambiente.
 
 ---
 
-# 💻 Computadores do Domínio
+# 💻 Computadores do domínio
+
+As estações Windows foram organizadas de acordo com seus respectivos departamentos:
 
 | Computador         | Departamento |
 | ------------------ | ------------ |
@@ -145,7 +203,13 @@ Os grupos foram utilizados para facilitar o gerenciamento de permissões e imple
 | **PC-TI01**        | TI           |
 | **NOTEBOOK-DIR01** | Diretoria    |
 
-Os computadores foram ingressados no domínio `lvm.local`, permitindo autenticação e gerenciamento centralizados.
+As máquinas foram ingressadas no domínio:
+
+```text
+lvm.local
+```
+
+permitindo autenticação e gerenciamento centralizados.
 
 ---
 
@@ -160,66 +224,119 @@ Foram configurados compartilhamentos de arquivos específicos para cada departam
 \\DC01\TI
 ```
 
-As permissões foram configuradas utilizando grupos de segurança do Active Directory.
+O controle de acesso foi estruturado utilizando grupos de segurança do Active Directory.
 
 ---
 
-# ⚙️ Funcionalidades Implementadas
+# 🔒 Permissões e controle de acesso
+
+O laboratório utilizou:
+
+```text
+Active Directory Groups
+        ↓
+Controle de acesso
+        ↓
+Permissões NTFS
+        ↓
+Compartilhamentos SMB
+```
+
+A utilização de grupos permite administrar permissões de forma centralizada e alinhada aos departamentos da organização.
+
+---
+
+# ⚙️ DNS
+
+O DNS foi integrado ao Active Directory e utilizado para resolução de nomes dentro do domínio.
+
+Servidor DNS:
+
+```text
+10.10.10.10
+```
+
+A resolução de nomes é fundamental para o funcionamento correto de serviços dependentes do domínio, incluindo autenticação e comunicação entre os computadores.
+
+---
+
+# 🧪 Validação e testes
+
+Após a implementação foram realizados testes para validar a infraestrutura.
+
+### Autenticação
+
+* Login utilizando contas do domínio;
+* Validação das credenciais;
+* Autenticação centralizada.
+
+### DNS
+
+* Resolução de nomes;
+* Comunicação com o controlador de domínio;
+* Validação do DNS utilizado pelas estações.
+
+### Domain Join
+
+* Ingresso das estações no domínio;
+* Validação da associação das máquinas ao Active Directory.
+
+### Grupos
+
+* Validação da associação dos usuários aos grupos;
+* Testes de controle de acesso.
+
+### Compartilhamentos
+
+* Acesso autorizado;
+* Acesso não autorizado;
+* Validação das permissões NTFS e SMB.
+
+---
+
+# 📊 Funcionalidades implementadas
 
 * ✅ Active Directory Domain Services
 * ✅ DNS integrado ao Active Directory
 * ✅ Organizational Units
 * ✅ Usuários
-* ✅ Grupos de Segurança
+* ✅ Grupos de segurança
 * ✅ RBAC
-* ✅ Permissões NTFS
-* ✅ Compartilhamento SMB
 * ✅ Controle de acesso
-* ✅ Estações Windows ingressadas no domínio
+* ✅ Permissões NTFS
+* ✅ Compartilhamentos SMB
+* ✅ Domain Join
 * ✅ Autenticação centralizada
 * ✅ Estrutura organizacional por departamento
-
----
-
-# 🧪 Testes Realizados
-
-Foram realizados testes para validar o funcionamento da infraestrutura:
-
-* Login utilizando contas do domínio.
-* Resolução DNS.
-* Ingresso das estações no domínio.
-* Autenticação centralizada.
-* Validação dos grupos de segurança.
-* Testes de acesso aos compartilhamentos.
-* Validação das permissões.
-* Testes de acesso autorizado e não autorizado.
+* ✅ Infraestrutura virtualizada
 
 ---
 
 # 📸 Evidências
 
-As evidências do projeto estão disponíveis no diretório:
+As evidências do projeto estão organizadas no diretório:
 
 ```text
 evidencias/
 ```
 
-O diretório contém capturas relacionadas à implementação e validação do ambiente, incluindo:
+As capturas incluem evidências relacionadas a:
 
-* Active Directory
-* DNS
-* Organizational Units
-* Usuários
-* Grupos
-* Computadores
-* Compartilhamentos
-* Permissões
-* Testes realizados
-* Configurações do domínio
+* Active Directory;
+* DNS;
+* Organizational Units;
+* Usuários;
+* Grupos;
+* Computadores;
+* Domain Join;
+* Compartilhamentos;
+* Permissões;
+* Autenticação;
+* Testes realizados.
 
 ---
 
-# 📄 Relatório Técnico
+# 📄 Relatório técnico
 
 O relatório técnico completo está disponível no diretório:
 
@@ -227,71 +344,161 @@ O relatório técnico completo está disponível no diretório:
 relatorio/
 ```
 
-O documento apresenta os detalhes da implementação, escopo técnico, evidências, resultados e competências desenvolvidas durante o projeto.
+O documento contém informações detalhadas sobre:
+
+* Implementação;
+* Configuração;
+* Estrutura do domínio;
+* Evidências;
+* Testes;
+* Resultados;
+* Troubleshooting;
+* Competências desenvolvidas.
 
 ---
 
-# 🛠️ Tecnologias Utilizadas
+# ⚠️ Limitações
 
-* Windows Server 2025
-* Windows
-* Active Directory
-* DNS
-* NTFS
-* SMB
-* RBAC
-* Virtualização
-* Ubuntu Linux
-* KVM/QEMU
+Como se trata de um laboratório educacional, a infraestrutura possui limitações quando comparada a um ambiente corporativo real.
 
----
+Entre elas:
 
-# 🚀 Roadmap do Laboratório
+* Ambiente isolado e controlado;
+* Quantidade reduzida de endpoints;
+* Estrutura simplificada de departamentos;
+* Ausência de infraestrutura redundante;
+* Ausência de múltiplos controladores de domínio;
+* Ausência de alta disponibilidade;
+* Serviços corporativos limitados ao escopo do laboratório.
 
-Este projeto representa a base da infraestrutura utilizada nos projetos seguintes.
-
-* ✅ **Projeto 1 — Active Directory Lab**
-* ⏳ **Projeto 2 — Group Policy (GPO) & Hardening**
-* ⏳ **Projeto 3 — Wazuh + Sysmon**
-* ⏳ **Projeto 4 — Detecção de Ataques**
-* ⏳ **Projeto 5 — Incident Response**
-* ⏳ **Projeto 6 — Vulnerability Management**
-* ⏳ **Projeto 7 — Suricata IDS/IPS**
-* ⏳ **Projeto 8 — pfSense Firewall**
-* ⏳ **Projeto 9 — SOC / Security Operations**
-* ⏳ **Projeto 10 — Projeto Final de Cybersecurity**
+Essas limitações não impedem o objetivo principal do projeto, que é desenvolver conhecimento prático sobre administração de ambientes Windows e Active Directory.
 
 ---
 
-# 🧠 Competências Desenvolvidas
+# 📈 Resultados
 
-Este projeto permitiu desenvolver conhecimentos práticos em:
+Ao final do projeto foi possível validar:
 
-* Windows Server
-* Active Directory
-* DNS
-* Gerenciamento de usuários
-* Gerenciamento de grupos
-* RBAC
-* NTFS Permissions
-* SMB
-* Controle de acesso
-* Autenticação centralizada
-* Administração de ambientes Windows
-* Virtualização
-* Troubleshooting
-* Estruturação de ambientes corporativos
+* ✅ Domínio Active Directory funcional;
+* ✅ DNS integrado ao domínio;
+* ✅ Estrutura organizacional por departamentos;
+* ✅ Usuários centralizados;
+* ✅ Grupos de segurança;
+* ✅ Controle de acesso baseado em grupos;
+* ✅ Compartilhamentos SMB;
+* ✅ Permissões NTFS;
+* ✅ Estações ingressadas no domínio;
+* ✅ Autenticação centralizada;
+* ✅ Infraestrutura preparada para projetos de segurança posteriores.
 
 ---
 
-# 👨‍💻 Autor
+# 🧠 Competências desenvolvidas
+
+Durante o projeto foram praticadas competências relacionadas a:
+
+### Windows Administration
+
+* Windows Server;
+* Administração de usuários;
+* Administração de computadores;
+* Gerenciamento de serviços;
+* Troubleshooting.
+
+### Active Directory
+
+* AD DS;
+* Organizational Units;
+* Users;
+* Groups;
+* Computer Objects;
+* Domain Join;
+* Authentication.
+
+### Network / Infrastructure
+
+* DNS;
+* SMB;
+* NTFS;
+* TCP/IP;
+* Virtualização.
+
+### Security
+
+* RBAC;
+* Controle de acesso;
+* Princípio de menor privilégio;
+* Gerenciamento de identidades;
+* Administração centralizada.
+
+---
+
+# 🚀 Próximas evoluções
+
+A infraestrutura criada neste projeto serve como base para os projetos seguintes.
+
+O laboratório poderá evoluir para:
+
+* GPO;
+* Windows Hardening;
+* Wazuh;
+* Sysmon;
+* Threat Hunting;
+* Incident Response;
+* Vulnerability Management;
+* Identity & Access Management;
+* Network Security;
+* Corporate Penetration Testing;
+* Detection Engineering;
+* Security Automation.
+
+---
+
+# 🗂️ Estrutura do projeto
+
+```text
+01-LVM-Active-Directory/
+│
+├── README.md
+│
+├── evidencias/
+│
+└── relatorio/
+```
+
+---
+
+# 🏁 Conclusão
+
+O **Projeto 01 — Active Directory Corporate Lab** estabeleceu a infraestrutura corporativa utilizada como base para a evolução do laboratório de Cybersecurity da **LVM Technologies**.
+
+A implementação permitiu praticar a administração de um ambiente Windows centralizado utilizando **Active Directory, DNS, usuários, grupos, computadores, RBAC, NTFS e SMB**.
+
+A estrutura organizacional por departamentos possibilitou representar diferentes áreas de uma empresa e estabelecer uma base para controle de acesso e gerenciamento de identidades.
+
+Além da implementação técnica, o projeto permitiu desenvolver conhecimentos fundamentais em **Windows Administration, Identity Management, Authentication, Access Control, Networking e Virtualização**.
+
+A infraestrutura criada passou a servir como fundamento para os projetos posteriores de **Hardening, SIEM, Threat Hunting e Incident Response**.
+
+---
+
+## 📌 Status
+
+```text
+Projeto: Active Directory Corporate Lab
+Status: Concluído
+Ambiente: Laboratório corporativo virtualizado
+Domínio: lvm.local
+Rede: 10.10.10.0/24
+DC: DC01
+DNS: 10.10.10.10
+Resultado: Infraestrutura AD implementada e validada
+```
+
+---
+
+## 👨‍💻 Autor
 
 **Leonardo Poncham**
 
----
-
-## 🎯 Objetivo do Laboratório
-
-Este laboratório faz parte de uma série de projetos práticos voltados ao desenvolvimento de competências em **Cybersecurity, Blue Team, SOC, Threat Detection e Incident Response**.
-
-A infraestrutura criada neste projeto serve como base para a implementação de mecanismos de **monitoramento, detecção, hardening, análise de eventos e resposta a incidentes** nos projetos seguintes.
+**Foco:** Cybersecurity | Windows | Active Directory | Blue Team | SOC
