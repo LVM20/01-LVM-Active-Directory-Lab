@@ -75,29 +75,47 @@ lvm.local
 A infraestrutura foi organizada de forma semelhante a um ambiente corporativo real:
 
 ```text
-                         LVM Technologies
-                               │
+                         ┌─────────────────────────┐
+                         │    LVM TECHNOLOGIES      │
+                         │      10.10.10.0/24      │
+                         │        lvm.local        │
+                         └────────────┬────────────┘
+                                      │
+                                      ▼
+                         ┌─────────────────────────┐
+                         │          DC01           │
+                         │ Active Directory + DNS  │
+                         │      File Server        │
+                         │      10.10.10.10        │
+                         └────────────┬────────────┘
+                                      │
+                  ┌───────────────────┼───────────────────┐
+                  │                   │                   │
+                  ▼                   ▼                   ▼
+             ┌─────────┐         ┌─────────┐         ┌─────────┐
+             │  WS01   │         │  WS02   │         │  WS03   │
+             │   RH    │         │Financeiro│        │   TI    │
+             │  .20    │         │  .21    │         │  .22    │
+             └─────────┘         └─────────┘         └─────────┘
+                  │                   │                   │
+                  └───────────────────┼───────────────────┘
+                                      │
+                                      ▼
+                                 ┌─────────┐
+                                 │  WS04   │
+                                 │Diretoria│
+                                 │  .23    │
+                                 └─────────┘
+
                          Active Directory
                                │
-                              DC01
-                        10.10.10.10
-                               │
               ┌────────────────┼────────────────┐
+              ▼                ▼                ▼
+             OUs             Users            Groups
               │                │                │
-            RH             Financeiro           TI
-              │                │                │
-            WS01             WS02              WS03
-        10.10.10.20      10.10.10.21      10.10.10.22
-                               │
-                            Diretoria
-                               │
-                              WS04
-                         10.10.10.23
-                               │
+              └────────────────┼────────────────┘
                                ▼
-                             SEC01
-                        Wazuh Server
-                        10.10.10.30
+                       SMB / NTFS Permissions
 ```
 
 O **DC01** atua como núcleo da infraestrutura de identidade e resolução de nomes, enquanto as estações Windows representam os diferentes departamentos da organização.
